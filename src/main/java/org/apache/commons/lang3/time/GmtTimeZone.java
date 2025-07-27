@@ -17,6 +17,7 @@
 package org.apache.commons.lang3.time;
 
 import java.util.Date;
+import java.util.Objects;
 import java.util.TimeZone;
 
 /**
@@ -96,10 +97,14 @@ class GmtTimeZone extends TimeZone {
     }
 
     @Override
-    public boolean equals(final Object other) {
-        if (!(other instanceof GmtTimeZone)) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof GmtTimeZone)) {
             return false;
         }
-        return zoneId == ((GmtTimeZone) other).zoneId;
+        GmtTimeZone other = (GmtTimeZone) obj;
+        return offset == other.offset && Objects.equals(zoneId, other.zoneId);
     }
 }

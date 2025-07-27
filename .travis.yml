@@ -29,6 +29,16 @@ matrix:
   allow_failures:
     - jdk: openjdk-ea
 
+before_install:
+  - |
+    if [[ "$TRAVIS_JDK_VERSION" == "openjdk15" ]]; then
+      echo "fixing openjdk-15"
+      wget "https://download.bell-sw.com/java/15.0.2+10/bellsoft-jdk15.0.2+10-linux-amd64.deb"
+      sudo dpkg -i ./bellsoft-jdk15.0.2+10-linux-amd64.deb
+      export JAVA_HOME=/usr/lib/jvm/bellsoft-java15-amd64
+      sudo update-java-alternatives -s bellsoft-java15-amd64
+    fi
+
 script:
   - mvn -V --no-transfer-progress
  
